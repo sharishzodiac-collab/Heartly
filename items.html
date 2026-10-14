@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heartly — Shop Items</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="cart.css" />
+    <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 24 24" class="logo-icon" aria-hidden="true">
+                    <path d="M12 21s-8-4.7-8-10a4.6 4.6 0 0 1 8-3.1A4.6 4.6 0 0 1 20 11c0 5.3-8 10-8 10z"/>
+                </svg>
+                <span class="logo-text">Heartly</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="category.html">Collections</a>
+                <a href="items.html" class="active">All Items</a>
+                <a href="index.html#how">How it Works</a>
+                <a href="track.html">Track Surprise</a>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-auth-slot"></div>
+                <a href="checkout.html" class="cart-nav-link" aria-label="View Surprise Box">
+                    <svg viewBox="0 0 24 24" class="cart-icon-svg"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    <span>Box</span>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+                <a href="checkout.html" class="btn btn-primary btn-pill" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Checkout ></a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section section-trending">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-header-content">
+                    <h2>All Items</h2>
+                    <p>Discover 12 premium items for your next handcrafted surprise.</p>
+                </div>
+                <a href="category.html" class="view-all">← Back to Collections</a>
+            </div>
+
+            <div class="items-grid" id="items-grid">
+                <!-- Products rendered dynamically from product.json via products.js -->
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Heartly</h4>
+                <p>Making premium gifting personal, artistic, and effortless.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <div class="footer-links">
+                    <a href="index.html#how">About Us</a>
+                    <a href="category.html">Collections</a>
+                    <a href="items.html">All Items</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <div class="footer-links">
+                    <a href="track.html">Track Surprise</a>
+                    <a href="index.html#safety">Safety</a>
+                    <a href="checkout.html">Checkout</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Join the Joy</h4>
+                <p>Subscribe for curated gifting ideas.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="email@address.com" />
+                    <button type="submit" class="btn-newsletter">→</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2024 Heartly Gifting. Handcrafted with joy.</div>
+    </footer>
+    <div class="toast">
+  <span class="toast-icon">
+    <svg viewBox="0 0 24 24" class="icon"><path d="M5.8 11.3L2 22l10.7-3.8M4 3h.01M22 8h.01M15 2h.01M22 20h.01M11 13l9-9"/></svg>
+  </span>
+  <div>
+    <p class="toast-title">Added to Surprise!</p>
+    <p class="toast-text">Item saved. <a href="checkout.html" style="color:#b7102a; text-decoration:underline; font-weight:600;">Proceed to Checkout &rarr;</a></p>
+  </div>
+</div>
+<script>
+  // Newsletter subscription
+  const newsletterForm = document.querySelector('.newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailInput = document.querySelector('.newsletter-input');
+      const email = emailInput ? emailInput.value : '';
+      alert(`Thanks for subscribing with ${email}!`);
+      if (emailInput) emailInput.value = '';
+    });
+  }
+</script>
+<script src="auth.js"></script>
+<script src="products.js"></script>
+<script src="cart.js"></script>
+</body>
+</html>

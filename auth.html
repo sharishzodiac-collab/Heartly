@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heartly — Sign In & Register</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body style="background: #fafafc; min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 24 24" class="logo-icon" aria-hidden="true">
+                    <path d="M12 21s-8-4.7-8-10a4.6 4.6 0 0 1 8-3.1A4.6 4.6 0 0 1 20 11c0 5.3-8 10-8 10z"/>
+                </svg>
+                <span class="logo-text">Heartly</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="category.html">Collections</a>
+                <a href="items.html">All Items</a>
+                <a href="index.html#how">How it Works</a>
+                <a href="track.html">Track Surprise</a>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-auth-slot">
+                    <!-- Populated dynamically by auth.js -->
+                </div>
+                <a href="checkout.html" class="cart-nav-link" aria-label="View Surprise Box">
+                    <svg viewBox="0 0 24 24" class="cart-icon-svg"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    <span>Box</span>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Auth Container -->
+    <main style="flex: 1;">
+        <div class="auth-wrapper">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">💌</div>
+                    <h1>Welcome to Heartly</h1>
+                    <p>Send handcrafted artisanal joy and keep track of all your surprises.</p>
+                </div>
+
+                <div class="auth-tabs">
+                    <button type="button" class="auth-tab-btn active" id="tab-login">Sign In</button>
+                    <button type="button" class="auth-tab-btn" id="tab-register">Create Account</button>
+                </div>
+
+                <div id="auth-alert" class="auth-alert"></div>
+
+                <!-- 1. Login Form -->
+                <form id="form-login" class="auth-form">
+                    <div class="form-group">
+                        <label class="form-label" for="login-email">Email Address</label>
+                        <input type="email" id="login-email" class="form-input" placeholder="you@example.com" required autocomplete="email" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">Password</label>
+                        <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password" />
+                    </div>
+
+                    <button type="submit" class="btn-auth-submit">Sign In to Heartly</button>
+
+                    <button type="button" id="btn-demo-login" class="btn-demo-quick">
+                        ⚡ Quick Demo Sign In (Harish Kumar)
+                    </button>
+                </form>
+
+                <!-- 2. Registration Form -->
+                <form id="form-register" class="auth-form" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label" for="reg-name">Full Name</label>
+                        <input type="text" id="reg-name" class="form-input" placeholder="Harish Kumar" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reg-email">Email Address</label>
+                        <input type="email" id="reg-email" class="form-input" placeholder="harish@example.com" required autocomplete="email" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reg-phone">Phone Number (Optional)</label>
+                        <input type="tel" id="reg-phone" class="form-input" placeholder="+91 98765 43210" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reg-password">Password (min 6 characters)</label>
+                        <input type="password" id="reg-password" class="form-input" placeholder="••••••••" minlength="6" required autocomplete="new-password" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reg-confirm">Confirm Password</label>
+                        <input type="password" id="reg-confirm" class="form-input" placeholder="••••••••" minlength="6" required autocomplete="new-password" />
+                    </div>
+
+                    <button type="submit" class="btn-auth-submit">Create My Account</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Heartly</h4>
+                <p>Making premium gifting personal, artistic, and effortless. Your partner in professional joy.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <div class="footer-links">
+                    <a href="index.html#how">About Us</a>
+                    <a href="category.html">Artisans</a>
+                    <a href="items.html">All Items</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <div class="footer-links">
+                    <a href="track.html">Track Order</a>
+                    <a href="index.html#safety">Safety & Guarantee</a>
+                    <a href="checkout.html">Checkout</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Heartly Gifting. Handcrafted with joy.
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>

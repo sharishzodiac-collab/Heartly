@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "title": "Golden Dairy Treat",
+    "category": "Chocolates",
+    "price": 28.00,
+    "description": "Rich artisanal milk chocolates with a silky caramel finish.",
+    "image": "image/dairy.jpeg"
+  },
+  {
+    "id": 2,
+    "title": "Forest Friendship Bouquet",
+    "category": "Flowers",
+    "price": 42.00,
+    "description": "A fresh meadow mix with roses, eucalyptus and subtle wildflowers.",
+    "image": "image/fox.jpeg"
+  },
+  {
+    "id": 3,
+    "title": "Candlelight Calm Kit",
+    "category": "Wellness",
+    "price": 33.00,
+    "description": "A hand-poured candle and calming ritual set for cozy evenings.",
+    "image": "image/lamp.jpeg"
+  },
+  {
+    "id": 4,
+    "title": "Morning Ritual Tea",
+    "category": "Wellness",
+    "price": 24.00,
+    "description": "A bright tea blend designed to awaken the senses and inspire the day.",
+    "image": "image/2cup.jpeg"
+  },
+  {
+    "id": 5,
+    "title": "Berry Charm Treat",
+    "category": "Chocolates",
+    "price": 26.00,
+    "description": "Sweet berry bites with a creamy center and crisp shell.",
+    "image": "image/bcup.jpeg"
+  },
+  {
+    "id": 6,
+    "title": "Delightful Keepsake Doll",
+    "category": "Gifts",
+    "price": 37.00,
+    "description": "A handcrafted plush companion with artisanal details.",
+    "image": "image/doll.jpeg"
+  },
+  {
+    "id": 7,
+    "title": "Serene Soap Trio",
+    "category": "Wellness",
+    "price": 19.00,
+    "description": "Three scented botanical soaps made for gentle, luxurious care.",
+    "image": "image/lamp.jpeg"
+  },
+  {
+    "id": 8,
+    "title": "Sunset Tea Set",
+    "category": "Chocolates",
+    "price": 49.00,
+    "description": "An elegant tea set with artisan blends and a gift-ready box.",
+    "image": "image/2cup.jpeg"
+  },
+  {
+    "id": 9,
+    "title": "Velvet Rose Arrangement",
+    "category": "Flowers",
+    "price": 58.00,
+    "description": "Classic roses arranged in a luxurious velvet wrap.",
+    "image": "image/fox.jpeg"
+  },
+  {
+    "id": 10,
+    "title": "Morning Bloom Basket",
+    "category": "Flowers",
+    "price": 47.00,
+    "description": "A cheerful basket of seasonal flowers with fresh green accents.",
+    "image": "image/dairy.jpeg"
+  },
+  {
+    "id": 11,
+    "title": "Lavender Rest Set",
+    "category": "Wellness",
+    "price": 34.00,
+    "description": "A soothing set with lavender balm and botanical mist.",
+    "image": "image/fox.jpeg"
+  },
+  {
+    "id": 12,
+    "title": "Sugar & Spice Treat",
+    "category": "Chocolates",
+    "price": 31.00,
+    "description": "A warm baked-inspired collection for cozy celebrations.",
+    "image": "image/2cup.jpeg"
+  }
+]

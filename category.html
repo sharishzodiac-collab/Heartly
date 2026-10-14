@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Heartly — Curated Artisan Gift Collections</title>
+<meta name="description" content="Handpicked chocolate, flower and wellness gift collections from local artisans, packaged with heart and delivered with a smile." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="category.css" />
+<link rel="stylesheet" href="cart.css" />
+<link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<!-- <nav class="main-nav">
+  <div class="container header-inner">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 24 24" class="icon heart-fill"><path d="M12 21s-8-4.7-8-10a4.6 4.6 0 0 1 8-3.1A4.6 4.6 0 0 1 20 11c0 5.3-8 10-8 10z"/></svg>
+      Heartly
+    </a>
+    
+      <a href="#gifts">Gifts</a>
+      <a href="#how">How it Works</a>
+      <a href="#safety">Safety</a>
+    
+    <a href="checkout.html" class="btn btn-primary btn-pill" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
+      <svg viewBox="0 0 24 24" class="icon"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      Track Surprise
+    </a>
+  </div>
+</nav> -->
+<nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <svg viewBox="0 0 24 24" class="logo-icon" aria-hidden="true">
+                <path d="M12 21s-8-4.7-8-10a4.6 4.6 0 0 1 8-3.1A4.6 4.6 0 0 1 20 11c0 5.3-8 10-8 10z"/>
+            </svg>
+            <span class="logo-text">Heartly</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="category.html" class="active">Collections</a>
+            <a href="items.html">All Items</a>
+            <a href="index.html#how">How it Works</a>
+            <a href="track.html">Track Surprise</a>
+        </div>
+        <div class="nav-actions">
+            <div class="nav-auth-slot"></div>
+            <a href="checkout.html" class="cart-nav-link" aria-label="View Surprise Box">
+                <svg viewBox="0 0 24 24" class="cart-icon-svg"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                <span>Box</span>
+                <span class="cart-badge" id="cart-count">0</span>
+            </a>
+            <a href="checkout.html" class="btn btn-primary btn-pill" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
+                Checkout >
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2 class="sidebar-title">Categories</h2>
+    <ul class="cat-list">
+      <li><a class="cat is-active" href="#gifts" data-category="all">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span>All Collections</span><em>12</em></a></li>
+      <li><a class="cat" href="#gifts" data-category="chocolates">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7"/></svg>
+        <span>Chocolates</span><em>4</em></a></li>
+      <li><a class="cat" href="#gifts" data-category="flowers">
+        <svg viewBox="0 0 24 24" class="icon"><circle cx="12" cy="8" r="3"/><path d="M12 11v10M9 8H5m14 0h-4"/></svg>
+        <span>Flowers</span><em>3</em></a></li>
+      <li><a class="cat" href="#gifts" data-category="wellness">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M11 20A7 7 0 0 1 4 13c0-6 7-9 16-9 0 9-3 16-9 16z"/></svg>
+        <span>Wellness</span><em>4</em></a></li>
+      <li><a class="cat" href="#gifts" data-category="gifts">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        <span>Artisan Gifts</span><em>1</em></a></li>
+    </ul>
+
+    <div class="help-card">
+      <h3>Need help?</h3>
+      <p>Our artisan consultants are ready to help you find the perfect gift.</p>
+      <button class="btn btn-outline btn-pill btn-sm">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg>
+        Chat with us
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main id="gifts" class="main">
+    <h1 class="page-title">Curated Joy</h1>
+    <div class="page-meta">
+      <p class="lead">Handpicked collections from local artisans, packaged with heart and delivered with a smile.</p>
+      <label class="sort">Sort by:
+        <select>
+          <option>Most Popular</option>
+          <option>Newest</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="product-grid" id="category-product-grid">
+      <!-- Products loaded dynamically from product.json via products.js -->
+    </div>
+
+    <div class="pagination">
+      <p>Showing 12 of 12 artisanal gifts</p>
+      <a class="btn btn-outline btn-pill" href="items.html"  style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">View All Items</a>
+    </div>
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <span class="footer-logo">Heartly</span>
+      <p class="footer-about">Handcrafting moments of pure joy through curated gifting and artisanal quality.</p>
+    </div>
+    <div>
+      <h3 class="footer-title">Explore</h3>
+      <ul class="footer-links">
+        <li><a href="index.html#how">About Us</a></li>
+        <li><a href="category.html">Collections</a></li>
+        <li><a href="items.html">All Items</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="footer-title">Support</h3>
+      <ul class="footer-links">
+        <li><a href="track.html">Track Surprise</a></li>
+        <li><a href="index.html#safety">Safety & Guarantee</a></li>
+        <li><a href="index.html#how">How it Works</a></li>
+        <li><a href="checkout.html">Gift Guarantee</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="footer-title">Subscribe</h3>
+      <p class="footer-about">Get notified about new artisanal drops.</p>
+      <form class="subscribe" onsubmit="return false">
+        <input type="email" placeholder="Email address" aria-label="Email address" required />
+        <button type="submit" aria-label="Subscribe">
+          <svg viewBox="0 0 24 24" class="icon"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="copyright">© 2024 Heartly Gifting. Handcrafted with joy.</div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast">
+  <span class="toast-icon">
+    <svg viewBox="0 0 24 24" class="icon"><path d="M5.8 11.3L2 22l10.7-3.8M4 3h.01M22 8h.01M15 2h.01M22 20h.01M11 13l9-9"/></svg>
+  </span>
+  <div>
+    <p class="toast-title">Added to Surprise!</p>
+    <p class="toast-text">Item saved. <a href="checkout.html" style="color:var(--brand); text-decoration:underline; font-weight:600;">Proceed to Checkout &rarr;</a></p>
+  </div>
+</div>
+
+<script>
+  // Safe smooth scroll navigation for valid in-page hash anchors
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (!href || href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Newsletter subscribe form
+  const subscribeForm = document.querySelector('.subscribe');
+  if (subscribeForm) {
+    subscribeForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = subscribeForm.querySelector('input');
+      if (input && input.value) {
+        alert(`Thanks for subscribing with ${input.value}!`);
+        input.value = '';
+      }
+    });
+  }
+</script>
+<script src="auth.js"></script>
+<script src="products.js"></script>
+<script src="cart.js"></script>
+</body>
+</html>

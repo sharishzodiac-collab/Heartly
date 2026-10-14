@@ -1,0 +1,94 @@
+/* Heartly - Cart & Dynamic Badge Styles */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cart-nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  background: #ffffff;
+  border: 1.5px solid rgba(183, 16, 42, 0.25);
+  border-radius: 9999px;
+  color: var(--primary-red, #b7102a);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease;
+}
+
+.cart-nav-link:hover {
+  background: #fff5f6;
+  border-color: var(--primary-red, #b7102a);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(183, 16, 42, 0.12);
+}
+
+.cart-icon-svg {
+  width: 17px;
+  height: 17px;
+  stroke: var(--primary-red, #b7102a);
+  fill: none;
+  stroke-width: 2;
+}
+
+.cart-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: var(--primary-red, #b7102a);
+  color: #ffffff;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cart-badge.bump {
+  transform: scale(1.35);
+}
+
+/* Toast alert enhanced */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #ffffff;
+  border: 1px solid rgba(183, 16, 42, 0.2);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(120%);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 9999;
+  max-width: 360px;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Checkout Quantity buttons */
+.qty-btn {
+  transition: all 0.15s ease;
+}
+.qty-btn:hover {
+  background: #f0f0f0 !important;
+  border-color: #999 !important;
+}

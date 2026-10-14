@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heartly — My Account & Order History</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body style="background: #fafafc; min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 24 24" class="logo-icon" aria-hidden="true">
+                    <path d="M12 21s-8-4.7-8-10a4.6 4.6 0 0 1 8-3.1A4.6 4.6 0 0 1 20 11c0 5.3-8 10-8 10z"/>
+                </svg>
+                <span class="logo-text">Heartly</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="category.html">Collections</a>
+                <a href="items.html">All Items</a>
+                <a href="index.html#how">How it Works</a>
+                <a href="track.html">Track Surprise</a>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-auth-slot">
+                    <!-- Populated dynamically by auth.js -->
+                </div>
+                <a href="checkout.html" class="cart-nav-link" aria-label="View Surprise Box">
+                    <svg viewBox="0 0 24 24" class="cart-icon-svg"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    <span>Box</span>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Profile Content -->
+    <main style="flex: 1;">
+        <!-- 1. Guest State (When not logged in) -->
+        <div id="profile-guest-state" class="auth-wrapper" style="display: none; text-align: center; margin-top: 5rem;">
+            <div class="auth-card">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+                <h2 style="font-size: 1.5rem; font-weight: 800; color: #111; margin-bottom: 0.5rem;">Sign In to View Your Profile</h2>
+                <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1.75rem;">
+                    Access your past surprises, live order tracking, and saved recipient addresses.
+                </p>
+                <a href="auth.html" class="btn-auth-submit" style="display: inline-block; text-decoration: none; text-align: center;">
+                    Sign In or Create Account &rarr;
+                </a>
+            </div>
+        </div>
+
+        <!-- 2. Authenticated State -->
+        <div id="profile-auth-state" class="profile-container" style="display: none;">
+            <!-- Profile Hero -->
+            <div class="profile-hero">
+                <div class="profile-user-info">
+                    <div id="user-large-avatar" class="user-large-avatar">H</div>
+                    <div class="profile-names">
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <h2 id="user-display-name">Harish Kumar</h2>
+                            <span class="profile-badge">✨ Artisan Patron</span>
+                        </div>
+                        <p id="user-display-email" class="profile-email">harish@heartly.gift</p>
+                        <p id="user-display-phone" style="font-size: 0.8rem; color: #9ca3af; margin-top: 2px;">+91 98765 43210</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span id="user-display-joined" style="font-size: 0.8rem; color: #6b7280;">Member since Oct 2024</span>
+                    <button type="button" id="btn-logout" class="btn-logout">Sign Out</button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="profile-stats-grid">
+                <div class="stat-card">
+                    <div id="stat-total-orders" class="stat-val">0</div>
+                    <div class="stat-lbl">Surprises Sent</div>
+                </div>
+                <div class="stat-card">
+                    <div id="stat-active-deliveries" class="stat-val" style="color: #ea580c;">0</div>
+                    <div class="stat-lbl">Active In-Transit</div>
+                </div>
+                <div class="stat-card">
+                    <div id="stat-total-spent" class="stat-val" style="color: #16a34a;">$0.00</div>
+                    <div class="stat-lbl">Joy Investment</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Columns -->
+            <div class="profile-grid">
+                <!-- Left: Order History & Purchased Items -->
+                <div>
+                    <div class="section-card">
+                        <div class="section-title">
+                            <span>📦 Purchased Surprises &amp; Orders</span>
+                            <a href="category.html" style="font-size: 0.825rem; font-weight: 700; color: #b7102a; text-decoration: none;">Send Another Gift &rarr;</a>
+                        </div>
+                        <div id="profile-orders-list">
+                            <!-- Populated dynamically by auth.js -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Addresses & Profile Settings -->
+                <div>
+                    <!-- Saved Addresses -->
+                    <div class="section-card">
+                        <div class="section-title">
+                            <span>📍 Saved Recipient Addresses</span>
+                        </div>
+                        <div id="profile-addresses-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                        <form id="form-add-address" style="margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 1rem;">
+                            <p style="font-size: 0.8rem; font-weight: 700; color: #374151; margin-bottom: 0.6rem;">+ Add New Address</p>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <input type="text" id="addr-title" placeholder="Label (e.g. Mom's House)" class="form-input" style="font-size: 0.8rem; padding: 6px 10px;" required />
+                                <input type="text" id="addr-street" placeholder="Street Address" class="form-input" style="font-size: 0.8rem; padding: 6px 10px;" required />
+                                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 6px;">
+                                    <input type="text" id="addr-city" placeholder="City" class="form-input" style="font-size: 0.8rem; padding: 6px 10px;" required />
+                                    <input type="text" id="addr-zip" placeholder="Zip" class="form-input" style="font-size: 0.8rem; padding: 6px 10px;" required />
+                                </div>
+                                <button type="submit" class="btn btn-outline btn-pill" style="font-size: 0.8rem; padding: 6px 12px; margin-top: 4px; cursor: pointer;">Save Address</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Personal Information Form -->
+                    <div class="section-card">
+                        <div class="section-title">
+                            <span>⚙️ Account Settings</span>
+                        </div>
+                        <form id="form-edit-profile" class="auth-form">
+                            <div class="form-group">
+                                <label class="form-label" for="edit-name">Display Name</label>
+                                <input type="text" id="edit-name" class="form-input" style="font-size: 0.85rem;" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="edit-phone">Phone Number</label>
+                                <input type="tel" id="edit-phone" class="form-input" style="font-size: 0.85rem;" />
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-pill" style="font-size: 0.85rem; padding: 8px 16px; width: 100%; border: none; cursor: pointer;">
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Heartly</h4>
+                <p>Making premium gifting personal, artistic, and effortless. Your partner in professional joy.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <div class="footer-links">
+                    <a href="index.html#how">About Us</a>
+                    <a href="category.html">Artisans</a>
+                    <a href="items.html">All Items</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <div class="footer-links">
+                    <a href="track.html">Track Order</a>
+                    <a href="index.html#safety">Safety & Guarantee</a>
+                    <a href="checkout.html">Checkout</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Heartly Gifting. Handcrafted with joy.
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>

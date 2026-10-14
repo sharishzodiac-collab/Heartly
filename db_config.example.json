@@ -1,0 +1,7 @@
+{
+  "host": "localhost",
+  "user": "your_db_user",
+  "password": "YOUR_PASSWORD_HERE",
+  "database": "heartly_db",
+  "port": 3306
+}

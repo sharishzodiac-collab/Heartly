@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Secure Checkout | Heartly Gifting</title>
+<meta name="description" content="Complete your thoughtful surprise with Heartly's secure checkout — handcrafted gifts, joyful delivery, 100% happiness guarantee." />
+<link rel="stylesheet" href="checkout.css" />
+<link rel="stylesheet" href="cart.css" />
+<link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+<div class="hy-page">
+
+  <!-- <header class="hy-nav">
+    <div class="hy-wrap hy-nav-inner">
+      <a class="hy-logo" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.7-9.3-9A5.2 5.2 0 0 1 12 6.6a5.2 5.2 0 0 1 9.3 5.4C19.5 16.3 12 21 12 21z"/></svg>
+        Heartly
+      </a>
+      <nav class="hy-links">
+        <a href="#gifts">Gifts</a>
+        <a href="#how">How It Works</a>
+        <a href="#safety">Safety</a>
+      </nav>
+      <button class="hy-pill">Track Surprise</button>
+    </div>
+  </header> -->
+  <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 24 24" class="logo-icon" aria-hidden="true">
+                    <path d="M12 21s-8-4.7-8-10a4.6 4.6 0 0 1 8-3.1A4.6 4.6 0 0 1 20 11c0 5.3-8 10-8 10z"/>
+                </svg>
+                <span class="logo-text">Heartly</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="category.html">Collections</a>
+                <a href="items.html">All Items</a>
+                <a href="index.html#how">How it Works</a>
+                <a href="track.html">Track Surprise</a>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-auth-slot"></div>
+                <a href="checkout.html" class="cart-nav-link" aria-label="View Surprise Box">
+                    <svg viewBox="0 0 24 24" class="cart-icon-svg"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    <span>Box</span>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+                <a href="track.html" class="btn btn-primary btn-pill" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
+                    Track Surprise >
+                </a>
+            </div>
+        </div>
+    </nav>
+
+  <main class="hy-wrap">
+    <a class="hy-back" href="category.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Back to Gift Selection
+    </a>
+    <h1 class="hy-h1">Secure Checkout</h1>
+    <p class="hy-sub">Complete your thoughtful surprise for someone special.</p>
+
+    <div class="hy-grid">
+      <form>
+        <section class="hy-card">
+          <div class="hy-step"><span class="hy-step-num">1</span><h2 class="hy-step-title">Receiver Details</h2></div>
+          <div class="hy-row">
+            <div class="hy-field">
+              <label class="hy-label" for="name">Full Name</label>
+              <input class="hy-input" id="name" placeholder="Sarah Jenkins" />
+            </div>
+            <div class="hy-field">
+              <label class="hy-label" for="phone">Phone Number</label>
+              <input class="hy-input" id="phone" type="tel" placeholder="+1 (555) 234-5678" />
+            </div>
+          </div>
+          <div class="hy-field">
+            <label class="hy-label" for="email">Email (Optional)</label>
+            <input class="hy-input" id="email" type="email" placeholder="sarah@example.com" />
+          </div>
+          <div class="hy-field">
+            <label class="hy-label" for="msg">Gift Message</label>
+            <textarea class="hy-textarea" id="msg" placeholder="Write something heartwarming..."></textarea>
+          </div>
+        </section>
+
+        <section class="hy-card">
+          <div class="hy-step"><span class="hy-step-num">2</span><h2 class="hy-step-title">Delivery Address</h2></div>
+          <div class="hy-field">
+            <label class="hy-label" for="street">Street Address</label>
+            <input class="hy-input" id="street" placeholder="123 Artisan Way" />
+          </div>
+          <div class="hy-row">
+            <div class="hy-field">
+              <label class="hy-label" for="city">City</label>
+              <input class="hy-input" id="city" placeholder="Nashville" />
+            </div>
+            <div class="hy-field">
+              <label class="hy-label" for="zip">Zip Code</label>
+              <input class="hy-input" id="zip" placeholder="37201" />
+            </div>
+          </div>
+        </section>
+
+        <section class="hy-card">
+          <div class="hy-step"><span class="hy-step-num">3</span><h2 class="hy-step-title">Payment Method</h2></div>
+          <div class="hy-pay-row">
+            <button type="button" class="hy-pay-btn is-active">Apple Pay</button>
+            <button type="button" class="hy-pay-btn" aria-label="Card wallet">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+            </button>
+          </div>
+          <div class="hy-divider">Or pay with card</div>
+          <div class="hy-field">
+            <label class="hy-label" for="holder">Cardholder Name</label>
+            <input class="hy-input" id="holder" placeholder="John Doe" />
+          </div>
+          <div class="hy-field">
+            <label class="hy-label" for="card">Card Number</label>
+            <input class="hy-input" id="card" inputmode="numeric" placeholder="0000 0000 0000 0000" />
+          </div>
+          <div class="hy-row">
+            <div class="hy-field">
+              <label class="hy-label" for="exp">Expiry Date</label>
+              <input class="hy-input" id="exp" placeholder="MM / YY" />
+            </div>
+            <div class="hy-field">
+              <label class="hy-label" for="cvv">CVV</label>
+              <input class="hy-input" id="cvv" placeholder="&bull;&bull;&bull;" />
+            </div>
+          </div>
+        </section>
+      </form>
+
+      <aside class="hy-summary">
+        <h2>Order Summary</h2>
+        <div class="hy-item">
+          <img class="hy-thumb" src="image/fox.jpeg" alt="Artisan Bloom Collection" width="512" height="512" loading="lazy" />
+          <div>
+            <p class="hy-item-name">The Artisan Bloom Collection</p>
+            <p class="hy-item-desc">Handcrafted Ceramic &amp; Peonies</p>
+            <p class="hy-price">$89.00</p>
+          </div>
+        </div>
+        <div class="hy-line"><span>Subtotal</span><strong>$89.00</strong></div>
+        <div class="hy-line"><span>Delivery Fee</span><span class="hy-free">$12.00</span></div>
+        <div class="hy-line"><span>Joy Insurance &amp; Tax</span><strong>$6.45</strong></div>
+        <div class="hy-total"><span>Total</span><b>$107.45</b></div>
+        <a class="hy-cta" href="track.html" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Complete Joyful Order
+        </a>
+        <p class="hy-secure">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V6l8-3 8 3z"/><path d="m9 12 2 2 4-4"/></svg>
+          256-bit Secure Encryption
+        </p>
+        <div class="hy-guarantee">
+          <span class="hy-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.2L20 10l-5.8 1.8L12 18l-2.2-6.2L4 10l5.8-1.8z"/></svg>
+          </span>
+          <div>
+            <h3>Heartly Happiness Guarantee</h3>
+            <p>Not 100% joyful? We'll replace it for free, no questions asked.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="hy-footer">
+    <div class="hy-wrap">
+      <div class="hy-footer-grid">
+        <div>
+          <h4>Heartly</h4>
+          <p>Creating moments of pure delight through artisanal, hand-picked surprises.</p>
+        </div>
+        <div>
+          <h4>The Experience</h4>
+          <a href="index.html#how">About Us</a>
+          <a href="category.html">Collections</a>
+          <a href="items.html">All Items</a>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <a href="track.html">Track Surprise</a>
+          <a href="index.html#safety">Safety & Guarantee</a>
+          <a href="index.html#how">How It Works</a>
+        </div>
+        <div>
+          <h4>Newsletter</h4>
+          <p>Get inspiration for your next surprise.</p>
+          <form class="hy-news">
+            <input placeholder="Email" aria-label="Email" required />
+            <button type="submit">Join</button>
+          </form>
+        </div>
+      </div>
+      <p class="hy-copy">&copy; 2024 Heartly Gifting. Handcrafted with joy.</p>
+    </div>
+  </footer>
+
+  <script>
+    const newsForm = document.querySelector('.hy-news');
+    if (newsForm) {
+      newsForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = newsForm.querySelector('input');
+        if (input && input.value) {
+          alert(`Thanks for joining Heartly with ${input.value}!`);
+          input.value = '';
+        }
+      });
+    }
+  </script>
+  <script src="auth.js"></script>
+  <script src="cart.js"></script>
+</div>
+</body>
+</html>

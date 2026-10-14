@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heartly — Tracking Your Joy</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #fafafa;
+      color: #111;
+      min-height: 100vh;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 18px;
+      color: #111;
+    }
+    .logo svg { color:var(--primary-red); fill:var(--primary-red); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 14px;
+      color: #555;
+      list-style: none;
+    }
+    .nav-links a:hover { color: #111; }
+    .nav-links .active {
+      color: #ef4444;
+      font-weight: 600;
+      border-bottom: 2px solid #ef4444;
+      padding-bottom: 2px;
+    }
+    .btn-nav {
+      background: #ef4444;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-nav:hover { background: #dc2626; }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+    .page-title { font-size: 30px; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .page-sub { font-size: 13px; color: #888; }
+    .page-sub strong { color: #444; }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      margin-top: 28px;
+    }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #fff;
+      border: 1px solid #f0f0f0;
+      border-radius: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.04);
+      overflow: hidden;
+    }
+
+    /* ── STATUS BADGE ── */
+    .status-bar {
+      background: linear-gradient(to right, #fff7ed, #fffbeb);
+      border-bottom: 1px solid #fed7aa;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pulse-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #fb923c;
+      animation: pulse 1.5s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.3); }
+    }
+    .status-label { font-size: 11px; font-weight: 700; color: #ea580c; text-transform: uppercase; letter-spacing: .07em; }
+    .status-sub { font-size: 13px; color: #555; margin-top: 2px; }
+
+    /* ── TIMELINE ── */
+    .timeline-wrap { padding: 32px 24px 24px; }
+    .timeline { position: relative; list-style: none; }
+
+    /* track line behind nodes */
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      bottom: 18px;
+      width: 2px;
+      background: #f0f0f0;
+      z-index: 0;
+    }
+    /* completed fill */
+    .timeline::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      width: 2px;
+      height: calc(75% - 18px);
+      background: #ef4444;
+      z-index: 0;
+    }
+
+    .tl-item { display: flex; gap: 20px; }
+    .tl-item:not(:last-child) .tl-content { padding-bottom: 36px; }
+
+    .tl-node {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      transition: box-shadow .2s;
+    }
+    .tl-node svg { width: 16px; height: 16px; }
+
+    .tl-node.done  { background: #ef4444; color: #fff; box-shadow: 0 4px 10px rgba(239,68,68,.2); }
+    .tl-node.active { background: #fb923c; color: #fff; box-shadow: 0 4px 10px rgba(251,146,60,.3); outline: 4px solid #ffedd5; }
+    .tl-node.pending { background: #f3f4f6; color: #9ca3af; }
+
+    .tl-content { padding-top: 6px; flex: 1; }
+    .tl-label {
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tl-label.done-text   { color: #111; }
+    .tl-label.active-text { color: #ea580c; }
+    .tl-label.pending-text { color: #9ca3af; }
+
+    .badge-current {
+      font-size: 10px; font-weight: 700;
+      background: #ffedd5; color: #ea580c;
+      padding: 2px 8px; border-radius: 999px;
+      text-transform: uppercase; letter-spacing: .05em;
+    }
+    .tl-time {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 3px;
+    }
+    .tl-time.visible { color: #6b7280; }
+
+    /* courier card */
+    .courier-card {
+      margin-top: 12px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .courier-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #fb923c;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .courier-name { font-size: 12px; font-weight: 600; color: #1f2937; }
+    .courier-loc  { font-size: 11px; color: #6b7280; margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+    .courier-loc svg { width: 12px; height: 12px; }
+    .courier-eta { margin-left: auto; text-align: right; }
+    .courier-eta-label { font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: .05em; }
+    .courier-eta-val   { font-size: 14px; font-weight: 700; color: #ea580c; }
+
+    /* ── RIGHT COLUMN ── */
+    .right-col { display: flex; flex-direction: column; gap: 16px; }
+
+    /* progress panel */
+    .progress-panel { padding: 20px; }
+    .panel-title {
+      font-size: 13px; font-weight: 600; color: #111;
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 16px;
+    }
+    .panel-title-dot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; }
+
+    .progress-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .progress-item { display: flex; align-items: flex-start; gap: 12px; }
+    .prog-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .prog-icon svg { width: 13px; height: 13px; }
+    .prog-icon.done    { background: #fee2e2; color: #ef4444; }
+    .prog-icon.active  { background: #ffedd5; color: #fb923c; }
+    .prog-icon.pending { background: #f3f4f6; color: #d1d5db; }
+    .prog-label { font-size: 12px; font-weight: 600; }
+    .prog-label.done    { color: #1f2937; }
+    .prog-label.active  { color: #ea580c; }
+    .prog-label.pending { color: #9ca3af; }
+    .prog-time { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+
+    /* secure preview */
+    .preview-card { padding: 20px; }
+    .preview-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .preview-badge {
+      font-size: 11px; font-weight: 600; color: #ef4444;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .preview-badge svg { width: 13px; height: 13px; }
+    .preview-edit {
+      font-size: 11px; color: #9ca3af; background: none; border: none;
+      cursor: pointer; display: flex; align-items: center; gap: 4px;
+      transition: color .2s;
+    }
+    .preview-edit:hover { color: #555; }
+    .preview-edit svg { width: 11px; height: 11px; }
+    .preview-text { font-size: 13px; color: #374151; line-height: 1.6; font-style: italic; }
+
+    /* help card */
+    .help-card {
+      background: #111;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .help-title { font-size: 14px; font-weight: 600; color: #fff; }
+    .help-sub   { font-size: 12px; color: #6b7280; margin-top: 4px; }
+    .help-btn {
+      width: 40px; height: 40px;
+      background: #ef4444;
+      border: none; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background .2s;
+      flex-shrink: 0;
+    }
+    .help-btn:hover { background: #dc2626; }
+    .help-btn svg { width: 18px; height: 18px; color: #fff; }
+
+    /* ── ARTISANAL SECTION ── */
+    .artisanal { margin-top: 56px; }
+    .section-title { font-size: 24px; font-weight: 700; color: #111; margin-bottom: 28px; }
+    .art-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 640px) { .art-grid { grid-template-columns: 1fr; } }
+    .art-card {
+      background: #fff;
+      border: 1px solid #f0f0f0;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.04);
+      transition: box-shadow .2s;
+    }
+    .art-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.07); }
+    .art-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .art-icon svg { width: 20px; height: 20px; }
+    .art-icon.blue   { background: #eff6ff; color: #3b82f6; }
+    .art-icon.orange { background: #fff7ed; color: #f97316; }
+    .art-icon.green  { background: #f0fdf4; color: #22c55e; }
+    .art-title { font-size: 15px; font-weight: 600; color: #111; margin-bottom: 8px; }
+    .art-desc  { font-size: 13px; color: #6b7280; line-height: 1.65; }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 72px;
+      background: #fff;
+      border-top: 1px solid #f0f0f0;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 32px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+    .footer-brand-logo {
+      display: flex; align-items: center; gap: 6px;
+      font-weight: 700; font-size: 15px; color: #111;
+      margin-bottom: 10px;
+    }
+    .footer-brand-logo svg { color: #ef4444; fill: #ef4444; }
+    .footer-tagline { font-size: 12px; color: #9ca3af; line-height: 1.6; }
+    .footer-col-title {
+      font-size: 11px; font-weight: 600; color: #9ca3af;
+      text-transform: uppercase; letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: 13px; color: #555; transition: color .2s; }
+    .footer-links a:hover { color: #111; }
+    .footer-bottom {
+      border-top: 1px solid #f0f0f0;
+      padding: 16px 0;
+      text-align: center;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    :root {
+            --primary-red: #b7102a;
+            --dark-red: #b7102a;
+            --light-red: #e63946;
+            --accent-red: #410007;
+            --warm-neutral: #5b403f;
+            --dark-text: #1a1b1e;
+            --light-bg: #f4f3f7;
+            --white: #ffffff;
+            --border-light: #e4bebc;
+            --orange: #ffb702;
+            --orange-dark: #ff8c00;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        nav {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        nav .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            height:80px;
+            margin: 0 auto;
+            padding: 1rem 4rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            color:var(--primary-red);
+            flex-shrink: 0;
+        }
+
+        .logo-icon path {
+            fill: currentColor;
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-red);
+            letter-spacing: -0.8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--warm-neutral);
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.25rem 0;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-red);
+            border-bottom-color: var(--primary-red);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .btn-nav {
+            background: var(--primary-red);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            border: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            transition: var(--transition);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            nav .nav-container {
+                padding: 1rem 1.5rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+        .btn-primary {
+            background: white;
+            color: #b7102a;
+            border: none;
+            padding: 1rem 2.5rem;
+            padding-top:10px;
+            padding-bottom:10px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition:all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border:solid 2px #b7102a;
+        }
+
+        .btn-primary:hover {
+          color:white;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15);
+            background-color:#b7102a;
+            
+        }
+        
+
+
+
+  </style>
+  <link rel="stylesheet" href="cart.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <!-- <nav>
+    <div class="nav-inner">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Heartly
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">Gifts</a></li>
+        <li><a href="#">How it Works</a></li>
+        <li><a href="#">Safety</a></li>
+        <li><a href="#" class="active">Track Surprise</a></li>
+      </ul>
+      <a class="btn-nav" href="checkout.html" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
+        Track Surprise
+      </a>
+    </div>
+  </nav> -->
+   <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 24 24" class="logo-icon" aria-hidden="true">
+                    <path d="M12 21s-8-4.7-8-10a4.6 4.6 0 0 1 8-3.1A4.6 4.6 0 0 1 20 11c0 5.3-8 10-8 10z"/>
+                </svg>
+                <span class="logo-text">Heartly</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="category.html">Collections</a>
+                <a href="items.html">All Items</a>
+                <a href="index.html#how">How it Works</a>
+                <a href="track.html" class="active">Track Surprise</a>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-auth-slot"></div>
+                <a href="checkout.html" class="cart-nav-link" aria-label="View Surprise Box">
+                    <svg viewBox="0 0 24 24" class="cart-icon-svg"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    <span>Box</span>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+                <a href="category.html" class="btn btn-primary btn-pill" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
+                    Send New Gift >
+                </a>
+            </div>
+        </div>
+    </nav>
+
+  <!-- MAIN -->
+  <main>
+    <h1 class="page-title">Tracking Your Joy</h1>
+    <p class="page-sub">Order <strong>#HTLY-99283</strong> &bull; Sent to <strong>Sarah Jenkins</strong></p>
+
+    <div class="grid">
+
+      <!-- LEFT: Timeline -->
+      <div class="card">
+        <!-- Status bar -->
+        <div class="status-bar">
+          <span class="pulse-dot"></span>
+          <div>
+            <div class="status-label">Out for Delivery</div>
+            <div class="status-sub">Marco is en route &middot; Estimated 5:00 PM today</div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline-wrap">
+          <ul class="timeline">
+
+            <!-- Step 1: Order Placed -->
+            <li class="tl-item">
+              <div class="tl-node done">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <div class="tl-content">
+                <div class="tl-label done-text">Order Placed</div>
+                <div class="tl-time visible">May 12, 10:30 AM</div>
+              </div>
+            </li>
+
+            <!-- Step 2: AI Safety Review -->
+            <li class="tl-item">
+              <div class="tl-node done">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              </div>
+              <div class="tl-content">
+                <div class="tl-label done-text">AI Safety Review</div>
+                <div class="tl-time visible">May 12, 10:15 AM</div>
+              </div>
+            </li>
+
+            <!-- Step 3: Gift Prepared -->
+            <li class="tl-item">
+              <div class="tl-node done">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              </div>
+              <div class="tl-content">
+                <div class="tl-label done-text">Gift Prepared</div>
+                <div class="tl-time visible">May 12, 02:45 PM</div>
+              </div>
+            </li>
+
+            <!-- Step 4: Out for Delivery (ACTIVE) -->
+            <li class="tl-item">
+              <div class="tl-node active">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="tl-content">
+                <div class="tl-label active-text">
+                  Out for Delivery
+                  <span class="badge-current">Current</span>
+                </div>
+                <div class="tl-time visible">Estimated: Today, 5:00 PM</div>
+
+                <!-- Courier Card -->
+                <div class="courier-card">
+                  <div class="courier-avatar">M</div>
+                  <div>
+                    <div class="courier-name">Marco — Artisan Courier</div>
+                    <div class="courier-loc">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      Presidio Heights &middot; 2.4 mi away
+                    </div>
+                  </div>
+                  <div class="courier-eta">
+                    <div class="courier-eta-label">ETA</div>
+                    <div class="courier-eta-val">~18 min</div>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <!-- Step 5: Delivered -->
+            <li class="tl-item">
+              <div class="tl-node pending">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div class="tl-content">
+                <div class="tl-label pending-text">Delivered</div>
+                <div class="tl-time">Awaiting joy...</div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-col">
+
+        <!-- Progress Panel -->
+        <div class="card progress-panel">
+          <div class="panel-title">
+            <span class="panel-title-dot"></span>
+            Progress
+          </div>
+          <ul class="progress-list">
+
+            <li class="progress-item">
+              <div class="prog-icon done">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <div>
+                <div class="prog-label done">Order Placed</div>
+                <div class="prog-time">May 12, 10:30 AM</div>
+              </div>
+            </li>
+
+            <li class="progress-item">
+              <div class="prog-icon done">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              </div>
+              <div>
+                <div class="prog-label done">AI Safety Review</div>
+                <div class="prog-time">May 12, 10:15 AM</div>
+              </div>
+            </li>
+
+            <li class="progress-item">
+              <div class="prog-icon done">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              </div>
+              <div>
+                <div class="prog-label done">Gift Prepared</div>
+                <div class="prog-time">May 12, 02:45 PM</div>
+              </div>
+            </li>
+
+            <li class="progress-item">
+              <div class="prog-icon active">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div>
+                <div class="prog-label active">Out for Delivery</div>
+                <div class="prog-time">Estimated: Today, 5:00 PM</div>
+              </div>
+            </li>
+
+            <li class="progress-item">
+              <div class="prog-icon pending">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div>
+                <div class="prog-label pending">Delivered</div>
+                <div class="prog-time">Awaiting joy...</div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+        <!-- Secure Preview -->
+        <div class="card preview-card">
+          <div class="preview-header">
+            <div class="preview-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Secure Preview
+            </div>
+            <button class="preview-edit">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </button>
+          </div>
+          <p class="preview-text">
+            "Thinking of you today, Sarah. Hope these artisanal blooms bring as much light to your day as you bring to mine. Can't wait for our coffee date next week!"
+          </p>
+        </div>
+
+        <!-- Need Help -->
+        <div class="help-card">
+          <div>
+            <div class="help-title">Need Help?</div>
+            <div class="help-sub">Chat with our concierge team</div>
+          </div>
+          <button class="help-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#fff"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ARTISANAL DETAILS -->
+    <section class="artisanal">
+      <h2 class="section-title">Artisanal Details</h2>
+      <div class="art-grid">
+
+        <div class="art-card">
+          <div class="art-icon blue">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="art-title">Perfectly Tempered</div>
+          <p class="art-desc">Our flowers and gifts are kept in climate-controlled cabins at precisely 58°F until the moment of delivery.</p>
+        </div>
+
+        <div class="art-card">
+          <div class="art-icon orange">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <div class="art-title">Safety Verified</div>
+          <p class="art-desc">Your message was screened by Heartly AI for safety and positivity, ensuring a moment of pure joy.</p>
+        </div>
+
+        <div class="art-card">
+          <div class="art-icon green">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.82"/><path d="M19 8c0 0-3-2-7-2s-7 2-7 2"/><path d="M12 6V2"/><path d="M5 21s1-3 4-4 6 0 6-3"/></svg>
+          </div>
+          <div class="art-title">Earth Conscious</div>
+          <p class="art-desc">Packaged in 100% compostable artisanal paper and delivered via our electric fleet.</p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Heartly
+        </div>
+        <p class="footer-tagline">Creating proof of joy, one hand-delivered surprise at a time.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="index.html#how">About Us</a></li>
+          <li><a href="category.html">Collections</a></li>
+          <li><a href="items.html">All Items</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Orders</div>
+        <ul class="footer-links">
+          <li><a href="checkout.html">Checkout</a></li>
+          <li><a href="index.html#safety">Safety & Guarantee</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Help</div>
+        <ul class="footer-links">
+          <li><a href="track.html">Track Surprise</a></li>
+          <li><a href="index.html#how">How It Works</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2024 Heartly Gifting. Handcrafted with joy.
+    </div>
+  </footer>
+  <script src="auth.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>

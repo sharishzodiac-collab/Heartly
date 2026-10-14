@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heartly - Premium Artisanal Gifting</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 24 24" class="logo-icon" aria-hidden="true">
+                    <path d="M12 21s-8-4.7-8-10a4.6 4.6 0 0 1 8-3.1A4.6 4.6 0 0 1 20 11c0 5.3-8 10-8 10z"/>
+                </svg>
+                <span class="logo-text">Heartly</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="category.html">Collections</a>
+                <a href="items.html">All Items</a>
+                <a href="#how">How it Works</a>
+                <a href="track.html">Track Surprise</a>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-auth-slot"></div>
+                <a href="checkout.html" class="cart-nav-link" aria-label="View Surprise Box">
+                    <svg viewBox="0 0 24 24" class="cart-icon-svg"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    <span>Box</span>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+                <a href="category.html" class="btn btn-primary btn-pill" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
+                    Start Surprise >
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="badge">PROOF OF JOY</span>
+                <h1>
+                    Gifts that make their
+                    <br>
+                    <span class="italic">heart skip</span> a beat.
+                </h1>
+                <p class="hero-tagline">
+                    Curated artisanal surprises delivered with a touch of magic.
+                    Experience the premium way to show you care, from anywhere in the world.
+                </p>
+                
+                <!-- <form class="quick-form">
+                    <div class="form-group">
+                        <div class="form-field">
+                            <label>Surprise Type</label>
+                            <select>
+                                <option>Artisan Bouquet</option>
+                                <option>Artisan Tea</option>
+                                <option>Chocolates</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label>Delivery Date</label>
+                            <input type="date" placeholder="mm/dd/yyyy">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">→ Send a Surprise</button>
+                </form> -->
+            </div>
+
+            <div class="hero-image">
+                <div class="hero-image-wrapper">
+                    <img src="image/g.jpeg" alt="Artisan Flowers">
+                </div>
+                <div class="floating-card">
+                    <div class="floating-icon">✨</div>
+                    <div class="floating-text">
+                        <h4>Artisan Quality</h4>
+                        <p>Verified Handcrafted</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Surprises Section -->
+    <section class="section-trending" id="gifts">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-header-content">
+                    <h2>Trending Surprises</h2>
+                    <p>The most loved gifts by our community this season.</p>
+                </div>
+                <a href="category.html" class="view-all">View All Collections →</a>
+            </div>
+
+            <div class="bento-grid">
+                <div class="card-large">
+                    <img src="image/box.jpeg" alt="The Midnight Bloom" class="card-large-image">
+                    <div class="card-overlay">
+                        <div>
+                            <span class="badge">Bestseller</span>
+                            <h3 class="h3">The Midnight Bloom</h3>
+                            <p class="card-description">Hand-selected midnight proteas and silver eucalyptus.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="card-price">$85.00</span>
+                            <button class="btn-card">Add to Gift</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-small">
+                    <img src="image/boquet.jpeg" alt="Serenity Set" class="card-small-image">
+                    <div class="card-overlay">
+                        <h3 class="h3">Serenity Set</h3>
+                        <p class="card-description">Artisanal wax and botanicals.</p>
+                        <div class="card-footer">
+                            <span class="card-price">$28.00</span>
+                            <button class="btn-card">Add to Gift</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section-how" id="how">
+        <div class="how-header">
+            <h2>Making Joy Simple</h2>
+            <p>Our three-step process ensures every gift is personal, safe, and absolutely delightful.</p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Select & Personalize</h3>
+                <p>Choose from our curated artisanal selection and add a heartfelt message or a video note.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Artisan Crafting</h3>
+                <p>Our local partners hand-craft your gift with premium materials, ensuring the highest quality standards.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Joyful Delivery</h3>
+                <p>We deliver with care and send you a "Proof of Joy" notification once your surprise is received.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Section -->
+    <section class="section-safety" id="safety">
+        <div class="safety-container">
+            <img src="image/f.jpeg" alt="AI Safety" class="safety-image">
+            
+            <div class="safety-content">
+                <div class="safety-badge">
+                    <span class="safety-badge-icon">🛡️</span>
+                    <span class="safety-badge-text">Safe & Secure</span>
+                </div>
+                <h2>AI-Powered Safety & Review</h2>
+                <p class="safety-description">
+                    Your trust is our priority. Every message and personal note undergoes real-time AI safety screening to prevent harmful content and ensure a purely joyful experience.
+                </p>
+                
+                <div class="safety-list">
+                    <div class="safety-item">
+                        <span class="safety-item-icon">✓</span>
+                        <div class="safety-item-content">
+                            <h4>Content Moderation</h4>
+                            <p>Advanced NLP ensures all notes remain kind and appropriate.</p>
+                        </div>
+                    </div>
+                    <div class="safety-item">
+                        <span class="safety-item-icon">🔒</span>
+                        <div class="safety-item-content">
+                            <h4>Privacy First</h4>
+                            <p>End-to-end encryption for your private gift messages and video notes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="padding: 5rem 4rem;">
+        <div class="section-cta">
+            <div class="cta-content">
+                <h2>Ready to make someone's<br>day?</h2>
+                <p>Join 10,000+ people sending handcrafted joy across the country today.</p>
+                <div class="cta-buttons">
+                    <a class="btn-primary" href="category.html" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Start Gifting Now</a>
+                    <a class="btn-secondary" href="items.html" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Explore Catalogue</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Heartly</h4>
+                <p>Making premium gifting personal, artistic, and effortless. Your partner in professional joy.</p>
+                <div class="social-links">
+                    <div class="social-icon">f</div>
+                    <div class="social-icon">𝕏</div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Company</h4>
+                <div class="footer-links">
+                    <a href="#how">About Us</a>
+                    <a href="category.html">Artisans</a>
+                    <a href="items.html">All Items</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <div class="footer-links">
+                    <a href="track.html">Track Order</a>
+                    <a href="#safety">Safety</a>
+                    <a href="checkout.html">Checkout</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Join the Joy</h4>
+                <p>Subscribe for exclusive gifting ideas.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="email@address.com">
+                    <button type="submit" class="btn-newsletter">→</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Heartly Gifting. Handcrafted with joy.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#' || href.length < 2) return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#') && href.slice(1) === current) {
+                    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Form submission (safe guard if quick-form exists)
+        const quickForm = document.querySelector('.quick-form');
+        if (quickForm) {
+            quickForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your interest! This is a demo form.');
+            });
+        }
+
+        // Newsletter subscription
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const emailInput = document.querySelector('.newsletter-input');
+                const email = emailInput ? emailInput.value : '';
+                alert(`Thanks for subscribing with ${email}!`);
+                if (emailInput) emailInput.value = '';
+            });
+        }
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.step, .card-large, .card-small, .safety-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+    <script src="auth.js"></script>
+    <script src="products.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>
